@@ -603,5 +603,33 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+
+       <!-- Agrega este script al final de tu HTML justo antes de cerrar el body -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Obtener el formulario de captcha
+        var captchaForm = document.getElementById("captchaForm");
+
+        // Agregar un evento 'submit' al formulario
+        captchaForm.addEventListener("submit", function(event) {
+            // Prevenir el envío del formulario por defecto
+            event.preventDefault();
+
+            // Mostrar una alerta de éxito
+            alert("¡Captcha enviado correctamente!");
+
+            // Aquí puedes agregar la lógica para enviar el formulario de captcha utilizando AJAX
+            // Si estás utilizando reCAPTCHA, asegúrate de incluir el código necesario para verificar el captcha antes de enviar el formulario
+
+            // Limpiar los campos del formulario
+            captchaForm.reset();
+        });
+    });
+</script>
+
+
+
+
     </body>
 </html>
