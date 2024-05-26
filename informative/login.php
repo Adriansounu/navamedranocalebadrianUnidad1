@@ -24,9 +24,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Verificar si se encontró un usuario y si la contraseña es correcta
     if ($user && password_verify($password, $user['password'])) {
-        // Iniciar sesión y redirigir al usuario a una página de inicio
+        // Iniciar sesión y asignar variables de sesión
         $_SESSION['usuario'] = $user;
-        header("Location: perfil.html");
+        $_SESSION['nombre'] = $user['nombre'];
+        $_SESSION['apellidos'] = $user['apellidos'];
+
+        // Redirigir al usuario a una página de inicio
+        header("Location: user.php");
         exit;
     } else {
         echo "Correo electrónico o contraseña incorrectos";
