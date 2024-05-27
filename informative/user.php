@@ -85,7 +85,7 @@ if(isset($_SESSION['nombre'])) {
                 <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                     <!-- Mostrar nombre y apellido del usuario -->
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Bienvenido, <?php echo htmlspecialchars($_SESSION['nombre']); ?></a>
+                        <a class="nav-link" href="#">Bienvenido de Nuevo, <?php echo htmlspecialchars($_SESSION['nombre']); ?></a>
                     </li>
                     <!-- Cerrar sesión -->
                     <li class="nav-item">
