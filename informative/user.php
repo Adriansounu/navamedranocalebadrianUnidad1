@@ -74,31 +74,96 @@ if(isset($_SESSION['nombre'])) {
 </head>
 <body id="page-top">
     <!-- Navigation-->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="#page-top"><h2>MariaDB</h2></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                Menú
-                <i class="fas fa-bars ms-1"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                    <!-- Mostrar nombre y apellido del usuario -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Bienvenido de Nuevo, <?php echo htmlspecialchars($_SESSION['nombre']); ?></a>
-                    </li>
-                    <!-- Cerrar sesión -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="logout.php">Cerrar sesión</a>
-                    </li>
-                </ul>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="#page-top"><h2>MariaDB</h2></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            Menú
+            <i class="fas fa-bars ms-1"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
+                <!-- Mostrar nombre y apellido del usuario -->
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Bienvenido de Nuevo, <?php echo htmlspecialchars($_SESSION['nombre']); ?></a>
+                </li>
+                <!-- Cerrar sesión -->
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Cerrar sesión</a>
+                </li>
+                <!-- Barra de búsqueda -->
+                <li class="nav-item">
+                    <form class="d-flex" role="search" onsubmit="return searchContent()">
+                        <input class="form-control me-2" type="search" placeholder="Buscar productos" aria-label="Buscar" id="searchQuery">
+                        <button class="btn btn-outline-light" type="submit">Buscar</button>
+                    </form>
+                </li>
+            </ul>
         </div>
-    </nav>
+    </div>
+</nav>
+
+<!-- Search Results Section -->
+<div class="container mt-5" id="searchResults" style="display:none;">
+    <h2>Resultados de Búsqueda para "<span id="searchTerm"></span>"</h2>
+    <div id="resultsList"></div>
+    <a href="#portfolio" class="btn btn-primary mt-3">Volver</a>
+</div>
+
+
+            <!-- Agrega más productos según sea necesario -->
+        </div>
+    </div>
+</section>
+
+<script>
+function searchContent() {
+    // Obtener el término de búsqueda
+    const query = document.getElementById('searchQuery').value.toLowerCase();
+    document.getElementById('searchTerm').textContent = query;
+    
+    // Obtener todos los elementos de productos
+    const portfolioItems = document.querySelectorAll('.portfolio-item');
+    
+    // Contenedor para los resultados
+    const resultsList = document.getElementById('resultsList');
+    resultsList.innerHTML = '';
+    
+    // Mostrar u ocultar la sección de resultados
+    const searchResults = document.getElementById('searchResults');
+    searchResults.style.display = 'block';
+    
+    let found = false;
+    
+    // Buscar el término en los IDs de los productos
+    portfolioItems.forEach(item => {
+        const itemId = item.id.toLowerCase();
+        
+        if (itemId.includes(query)) {
+            found = true;
+            const resultItem = document.createElement('div');
+            resultItem.className = 'list-group-item';
+            resultItem.innerHTML = `
+                <h5>${item.querySelector('.portfolio-caption-heading').textContent}</h5>
+                <p>${item.querySelector('.portfolio-caption-subheading').textContent}</p>
+            `;
+            resultsList.appendChild(resultItem);
+        }
+    });
+    
+    if (!found) {
+        resultsList.innerHTML = '<p>No se encontraron resultados.</p>';
+    }
+    
+    return false; // Evitar el envío del formulario
+}
+</script>
+
     <!-- Fin de Navigation -->
 
     <!-- Contenedor de cards -->
     <!-- Portfolio Grid-->
+
     <section class="page-section bg-dark" id="portfolio">
         <div class="container">
             <div class="text-center">
@@ -174,11 +239,11 @@ if(isset($_SESSION['nombre'])) {
 <div class="portfolio-hover">
 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
 </div>
-<img class="img-fluid" src="assets/img/portfolio/camisa.jpg" alt="..." />
+<img class="img-fluid" src="assets/img/portfolio/tasas.jpg" alt="..." />
 </a>
 <div class="portfolio-caption">
-<div class="portfolio-caption-heading">Camisas</div>
-<div class="portfolio-caption-subheading text-muted">"Nuestras camisas destacan por su elegancia y comodidad. Perfectas para cualquier ocasión, están confeccionadas con materiales de alta calidad que garantizan un ajuste perfecto y un estilo impecable."</div>
+<div class="portfolio-caption-heading">Ctass</div>
+<div class="portfolio-caption-subheading text-muted">Eleva tu experiencia de tomar café con nuestra exclusiva Taza Supreme Edición Limitada! Diseñada para los verdaderos amantes del estilo y el buen gusto, esta taza combina la icónica marca Supreme con una funcionalidad excepcional</div>
 </div>
 </div>
 </div>
@@ -193,7 +258,7 @@ if(isset($_SESSION['nombre'])) {
 </a>
 <div class="portfolio-caption">
 <div class="portfolio-caption-heading">Gorras</div>
-<div class="portfolio-caption-subheading text-muted">"Nuestras gorras ofrecen el equilibrio perfecto entre estilo y funcionalidad. Con diseños modernos y materiales duraderos, son el accesorio ideal para completar cualquier atuendo."</div>
+<div class="portfolio-caption-subheading text-muted">"Añade un toque de estilo y funcionalidad a tu atuendo con nuestra gorra deportiva ajustable! Diseñada para brindar comodidad y protección, esta gorra es perfecta para cualquier actividad al aire libre</div>
 </div>
 </div>
 </div>
